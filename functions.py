@@ -4,7 +4,7 @@ import os
 class TimeKeeper:
     def __init__(self, file_name):
         self.name = file_name
-        self.log_name = file_name + "_" + datetime.now().strftime("%m-%d-%Y_%H-%M-%S") + ".log"
+        self.log_name = file_name + "_" + datetime.now().strftime("%m%d%Y-%H%M%S") + ".log"
         self.events = []
 
     def reset(self):
