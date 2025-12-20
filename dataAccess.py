@@ -1,7 +1,5 @@
 import os
 import pandas as pd
-import sys
-import time
 from functions import TimeKeeper
 
 tk = TimeKeeper("dataAccess")
@@ -56,5 +54,5 @@ if __name__ == "__main__":
     #verify_df = nj_pickle_to_df(2024, txt_file)
     #if verify_df is not None:
     #    print(verify_df.head(10))
-    save_years(list(range(2020,2024)))
+    save_years(list(range(2020,2025)))
     
