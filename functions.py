@@ -11,6 +11,7 @@ class TimeKeeper:
         self.events.clear()
 
     def log(self, s):
+        os.makedirs("log", exist_ok = True)
         with open(os.path.join("log", self.log_name), 'a') as logFile:
             logFile.write(s + "\n")
 

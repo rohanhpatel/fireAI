@@ -6,8 +6,16 @@ from functions import TimeKeeper
 
 tk = TimeKeeper("dataAccess")
 
+def save_years(years):
+    for y in years:
+        yearFiles = os.listdir(os.path.join('data', str(y)))
+        for fname in yearFiles:
+            actName = fname.split('.')[0]
+            txt_to_nj_pickle(y, actName)
+
 def txt_to_nj_pickle(year, txtName):
     curFile = os.path.join('data', str(year), txtName + ".txt")
+    tk.out(f"Converting {curFile} to pickle")
     if not os.path.exists(curFile):
         tk.out(f"{curFile} doesn't exist")
     curLines = []
@@ -29,23 +37,24 @@ def txt_to_nj_pickle(year, txtName):
     njDf = fullDf[fullDf["STATE"] == "NJ"]
     tk.end()
     pickleFile = os.path.join('compressed_data', 'nj_' + str(year) + "_" + txtName + '.pkl.gz')
-    tk.out("Saving as pickle file")
+    tk.out(f"Saving as pickle file {pickleFile}")
     njDf.to_pickle(pickleFile, compression='gzip')
     tk.end()
-    return pickleFile
 
-def nj_pickle_to_df(full_pickle_file):
-    if not os.path.exists(full_pickle_file):
-        tk.out(f"{full_pickle_file} doesn't exist")
+def nj_pickle_to_df(year, fname):
+    pickleFile = os.path.join('compressed_data', 'nj_' + str(year) + "_" + fname + ".pkl.gz")
+    if not os.path.exists(pickleFile):
+        tk.out(f"{pickleFile} doesn't exist")
         return None
     else:
-        tk.out(f"Reading {full_pickle_file}")
-        return pd.read_pickle(full_pickle_file)
+        tk.out(f"Reading {pickleFile}")
+        return pd.read_pickle(pickleFile)
 
 if __name__ == "__main__":
-    txt_file = sys.argv[1]
-    saved_file = txt_to_nj_pickle(2024, txt_file)
-    verify_df = nj_pickle_to_df(saved_file)
-    if verify_df is not None:
-        print(verify_df.head(10))
+    #txt_file = sys.argv[1]
+    #saved_file = txt_to_nj_pickle(2024, txt_file)
+    #verify_df = nj_pickle_to_df(2024, txt_file)
+    #if verify_df is not None:
+    #    print(verify_df.head(10))
+    save_years(list(range(2020,2024)))
     
