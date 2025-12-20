@@ -7,4 +7,3 @@ Predicting where a fire will occur based on previous years' data
 * Big Events
 * Proximity to Houses
 * Age of House
-* 
