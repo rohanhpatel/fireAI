@@ -207,6 +207,6 @@ marimo/_lsp/
 __marimo__/
 
 # Custom
-data/**
-log/**
+data/
+log/
 test**
